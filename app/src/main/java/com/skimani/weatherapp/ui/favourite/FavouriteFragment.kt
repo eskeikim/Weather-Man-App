@@ -1,4 +1,4 @@
-package com.skimani.weatherapp.ui.home
+package com.skimani.weatherapp.ui.search
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,14 +8,14 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.skimani.weatherapp.databinding.FragmentHomeBinding
+import com.skimani.weatherapp.databinding.FragmentFavouriteBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class HomeFragment : Fragment() {
+class FavouriteFragment : Fragment() {
 
-    private lateinit var homeViewModel: HomeViewModel
-    private var _binding: FragmentHomeBinding? = null
+    private lateinit var searchViewModel: SearchViewModel
+    private var _binding: FragmentFavouriteBinding? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -26,14 +26,14 @@ class HomeFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        homeViewModel =
-            ViewModelProvider(this)[HomeViewModel::class.java]
+        searchViewModel =
+            ViewModelProvider(this).get(SearchViewModel::class.java)
 
-        _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        _binding = FragmentFavouriteBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val textView: TextView = binding.textHome
-        homeViewModel.text.observe(
+        val textView: TextView = binding.textDashboard
+        searchViewModel.text.observe(
             viewLifecycleOwner,
             Observer {
                 textView.text = it

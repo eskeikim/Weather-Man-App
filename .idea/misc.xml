@@ -3,7 +3,13 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/projects/research/ek/weatherapp/app/src/main/res/drawable/ic_favorite_button.xml" value="0.1" />
+        <entry key="..\:/projects/research/ek/weatherapp/app/src/main/res/drawable/ic_home_button.xml" value="0.14635416666666667" />
+        <entry key="..\:/projects/research/ek/weatherapp/app/src/main/res/drawable/ic_notes.xml" value="0.1111111111111111" />
+        <entry key="..\:/projects/research/ek/weatherapp/app/src/main/res/drawable/ic_search.xml" value="0.1" />
         <entry key="..\:/projects/research/ek/weatherapp/app/src/main/res/layout/activity_main.xml" value="0.18229166666666666" />
+        <entry key="..\:/projects/research/ek/weatherapp/app/src/main/res/layout/fragment_favourite.xml" value="0.1296875" />
+        <entry key="..\:/projects/research/ek/weatherapp/app/src/main/res/menu/bottom_nav_menu.xml" value="0.1" />
       </map>
     </option>
   </component>
