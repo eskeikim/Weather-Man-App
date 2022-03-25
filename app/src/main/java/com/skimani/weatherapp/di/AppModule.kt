@@ -51,7 +51,7 @@ object AppModule {
 
     @Singleton
     @Provides
-    fun providesWeatherRepository(weatherDao: WeatherDao): WeatherRepository {
-        return WeatherRepository(weatherDao)
+    fun providesWeatherRepository(weatherDao: WeatherDao, apiService: ApiService): WeatherRepository {
+        return WeatherRepository(weatherDao, apiService)
     }
 }
