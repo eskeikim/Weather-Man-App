@@ -3,7 +3,6 @@ package com.skimani.weatherapp.adapters
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -35,7 +34,7 @@ class CurrentWeatherAdapter(private val context: Context) :
             binding.tvTime.text = time
             binding.tvTemp.text = "$temperature°"
             if (favourite) {
-                binding.ivFavourite.setBackgroundDrawable(context.getDrawable(R.drawable.ic_favorite_button))
+                binding.ivFavourite.setBackgroundDrawable(context.getDrawable(R.drawable.ic_filled_favourite))
             } else {
                 binding.ivFavourite.setBackgroundDrawable(context.getDrawable(R.drawable.ic_favorite_button))
             }

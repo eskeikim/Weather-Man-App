@@ -68,4 +68,8 @@ class WeatherRepository @Inject constructor(
         )
         weatherDao.saveCurrentWeather(currentWeather)
     }
+
+    suspend fun addFavourite(city: String, country: String, isFavourite: Boolean) {
+        weatherDao.addFavourite(city, country, isFavourite)
+    }
 }

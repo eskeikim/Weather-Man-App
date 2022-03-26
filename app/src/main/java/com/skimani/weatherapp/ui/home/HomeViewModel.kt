@@ -36,4 +36,10 @@ class HomeViewModel @Inject constructor(val weatherRepository: WeatherRepository
             }
         }
     }
+
+    fun addFavourite(city: String, country: String, isFavourite: Boolean) {
+        viewModelScope.launch {
+            weatherRepository.addFavourite(city, country, isFavourite)
+        }
+    }
 }

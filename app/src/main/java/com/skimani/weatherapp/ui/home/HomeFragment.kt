@@ -57,6 +57,13 @@ class HomeFragment : Fragment() {
                         "favourite!!! ${currentWeather.city}",
                         Toast.LENGTH_SHORT
                     ).show()
+                    var isFavourite = false
+                    isFavourite = !currentWeather.favourite
+                    homeViewModel.addFavourite(
+                        currentWeather.city,
+                        currentWeather.countryCode,
+                        isFavourite
+                    )
                 }
 
                 override fun onClicked(position: Int) {
