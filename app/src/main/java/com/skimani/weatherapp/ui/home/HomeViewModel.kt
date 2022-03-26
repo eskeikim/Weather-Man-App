@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.skimani.weatherapp.db.entity.CurrentWeather
 import com.skimani.weatherapp.network.models.CurrentWeatherResponse
 import com.skimani.weatherapp.repository.WeatherRepository
+import com.skimani.weatherapp.utils.Constants
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -28,14 +29,10 @@ class HomeViewModel @Inject constructor(val weatherRepository: WeatherRepository
     fun localCurrentWeather() = weatherRepository.getLocalCurrentWeather()
 
     fun getCurrentWeather() {
-        val locations = arrayListOf<String>()
-        locations.add("Nairobi,ke")
-        locations.add("Kisumu,ke")
-        locations.add("Mombasa,ke")
-        locations.add("Lagos,ng")
+        val cities = Constants.sampleCities()
         viewModelScope.launch {
-            locations.forEach {
-                val currentWeatherResponse = weatherRepository.getCurrentWeather(it)
+            cities.forEach {
+//                val currentWeatherResponse = weatherRepository.getCurrentWeather(it)
             }
         }
     }

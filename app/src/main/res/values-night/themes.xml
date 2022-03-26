@@ -12,6 +12,6 @@
         <!-- Status bar color. -->
         <!-- Customize your theme here. -->
         <item name="android:statusBarColor">@color/colorPrimaryDark</item>
-
+        <item name="fontFamily">@font/quicksand_medium</item>
     </style>
 </resources>

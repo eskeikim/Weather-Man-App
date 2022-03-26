@@ -47,6 +47,9 @@ class WeatherRepository @Inject constructor(
         val weatherMain = data.weather[0].main
         val weatherIcon = data.weather[0].icon
         val weatherDesc = data.weather[0].description
+        val date = Util.getDateTime(data.dt.toLong(), Constants.DATE_FORMAT_LONG) ?: ""
+        val dateLong = Util.getTimeFromDate(date, Constants.DATE_FORMAT_LONG)
+        val dateFormatted = Util.getDateTime(dateLong, Constants.DATE_FORMAT_LONG)
         val currentWeather = CurrentWeather(
             cityId = data.sys.id.toLong(),
             visibility = data.visibility,
@@ -54,7 +57,7 @@ class WeatherRepository @Inject constructor(
             temperature = data.main.temp,
             pressure = data.main.pressure,
             city = data.name,
-            date = Util.getDateTime(data.dt.toLong(), Constants.DATE_FORMAT_LONG) ?: "",
+            date = dateFormatted ?: "",
             time = Util.getDateTime(data.dt.toLong(), Constants.DATE_FORMAT_DISPLAY_12H) ?: "",
             weatherMain = weatherMain,
             weatherIcon = weatherIcon,
