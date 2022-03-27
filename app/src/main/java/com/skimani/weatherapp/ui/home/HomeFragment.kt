@@ -72,7 +72,7 @@ class HomeFragment : Fragment() {
 
                 override fun onClicked(currentWeather: CurrentWeather) {
                     Navigation.findNavController(binding.rvCurrentWeather)
-                        .navigate(R.id.navigation_notes)
+                        .navigate(R.id.detailFragment)
                 }
             })
     }

@@ -9,7 +9,11 @@
         android:id="@+id/navigation_home"
         android:name="com.skimani.weatherapp.ui.home.HomeFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_navigation_home_to_detailFragment"
+            app:destination="@id/detailFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_notes"
@@ -28,5 +32,10 @@
         android:name="com.skimani.weatherapp.ui.search.FavouriteFragment"
         android:label="@string/favourite"
         tools:layout="@layout/fragment_favourite" />
+    <fragment
+        android:id="@+id/detailFragment"
+        android:name="com.skimani.weatherapp.ui.home.DetailFragment"
+        android:label="detail_fragment"
+        tools:layout="@layout/detail_fragment" />
 
 </navigation>
