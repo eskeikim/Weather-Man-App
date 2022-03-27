@@ -9,9 +9,11 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import com.skimani.weatherapp.R
+import com.skimani.weatherapp.adapters.DailyForecastAdapter
 import com.skimani.weatherapp.adapters.HourlyForecastAdapter
 import com.skimani.weatherapp.databinding.DetailFragmentBinding
 import com.skimani.weatherapp.db.entity.CurrentWeather
+import com.skimani.weatherapp.db.entity.Hourly
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
@@ -26,6 +28,7 @@ class DetailFragment : Fragment() {
     private var _binding: DetailFragmentBinding? = null
     private val binding get() = _binding!!
     private lateinit var hourlyForecastAdapter: HourlyForecastAdapter
+    private lateinit var dailyForecastAdapter: DailyForecastAdapter
 
     val currentWeather by lazy {
         arguments?.let { DetailFragmentArgs.fromBundle(it).currentWeather }
@@ -79,6 +82,8 @@ class DetailFragment : Fragment() {
     private fun initAdapter() {
         hourlyForecastAdapter = HourlyForecastAdapter(requireContext())
         binding.rvHourlyForecast.adapter = hourlyForecastAdapter
+        dailyForecastAdapter = DailyForecastAdapter(requireContext())
+        binding.rvDayForecast.adapter = dailyForecastAdapter
     }
 
     private fun onFavouriteClicked(currentWeather: CurrentWeather) {
@@ -125,10 +130,15 @@ class DetailFragment : Fragment() {
                 .observe(viewLifecycleOwner, { hourlyForecast ->
                     if (hourlyForecast != null) {
                         val data = hourlyForecast.list
-                        hourlyForecastAdapter.submitList(data?.subList(0,6))
+                        hourlyForecastAdapter.submitList(data?.subList(0, 6))
+                        filterDataToDays(data)
                     }
                 })
         }
+    }
+
+    private fun filterDataToDays(data: List<Hourly>?) {
+        dailyForecastAdapter.submitList(data?.subList(0, 6))
     }
 
     override fun onDestroyView() {
