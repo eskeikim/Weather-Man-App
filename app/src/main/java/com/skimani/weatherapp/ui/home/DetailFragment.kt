@@ -14,6 +14,7 @@ import com.skimani.weatherapp.adapters.HourlyForecastAdapter
 import com.skimani.weatherapp.databinding.DetailFragmentBinding
 import com.skimani.weatherapp.db.entity.CurrentWeather
 import com.skimani.weatherapp.db.entity.Hourly
+import com.skimani.weatherapp.utils.Util
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
@@ -75,14 +76,15 @@ class DetailFragment : Fragment() {
             ivFavourite.setOnClickListener {
                 currentWeather?.let { onFavouriteClicked(it) }
             }
+            currentWeather?.weatherMain?.let { Util.bindWeatherIcon(it, ivWeatherIcon) }
         }
         initAdapter()
     }
 
     private fun initAdapter() {
-        hourlyForecastAdapter = HourlyForecastAdapter(requireContext())
+        hourlyForecastAdapter = HourlyForecastAdapter()
         binding.rvHourlyForecast.adapter = hourlyForecastAdapter
-        dailyForecastAdapter = DailyForecastAdapter(requireContext())
+        dailyForecastAdapter = DailyForecastAdapter()
         binding.rvDayForecast.adapter = dailyForecastAdapter
     }
 
@@ -118,9 +120,9 @@ class DetailFragment : Fragment() {
                     Timber.d("Local weather :::: $it")
                     val favourite = currentWeather?.favourite
                     if (favourite == true) {
-                        binding.ivFavourite.setBackgroundDrawable(requireContext().getDrawable(R.drawable.ic_filled_favourite))
+                        binding.ivFavourite.setImageDrawable(requireContext().getDrawable(R.drawable.ic_filled_favourite))
                     } else {
-                        binding.ivFavourite.setBackgroundDrawable(requireContext().getDrawable(R.drawable.ic_favorite_button))
+                        binding.ivFavourite.setImageDrawable(requireContext().getDrawable(R.drawable.ic_favorite_button))
                     }
                 }
             })
@@ -138,7 +140,8 @@ class DetailFragment : Fragment() {
     }
 
     private fun filterDataToDays(data: List<Hourly>?) {
-        dailyForecastAdapter.submitList(data?.subList(0, 6))
+        val filteredData = data?.distinctBy { it.date }
+        dailyForecastAdapter.submitList(filteredData)
     }
 
     override fun onDestroyView() {

@@ -60,13 +60,13 @@
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/iv_weather_icon"
-            android:layout_width="match_parent"
+            android:layout_width="100dp"
             android:layout_height="100dp"
-            android:padding="5dp"
+            android:padding="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_weather_text"
-            app:srcCompat="@drawable/night" />
+            tools:srcCompat="@drawable/rainy_night" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>

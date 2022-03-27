@@ -1,22 +1,18 @@
 package com.skimani.weatherapp.adapters
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.appcompat.widget.AppCompatImageView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.skimani.weatherapp.R
 import com.skimani.weatherapp.databinding.HourlyForecastItemListBinding
 import com.skimani.weatherapp.db.entity.Hourly
-import com.skimani.weatherapp.db.entity.HourlyForecast
+import com.skimani.weatherapp.utils.Util
 
-class HourlyForecastAdapter(private val context: Context) :
+class HourlyForecastAdapter :
     ListAdapter<Hourly, HourlyForecastAdapter.HourlyForecastAdapterViewHolder>(
         HourlyForecastDiffUtil
     ) {
-    private var onClickedListerner: onItemClickedListerner? = null
 
     inner class HourlyForecastAdapterViewHolder(private val binding: HourlyForecastItemListBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -30,13 +26,7 @@ class HourlyForecastAdapter(private val context: Context) :
             binding.tvTime.text = time
             binding.tvTemp.text = "$temperature°"
 
-            bindWeatherIcon(weather, binding.ivWeatherIcon)
-        }
-    }
-
-    private fun bindWeatherIcon(weather: String, ivWeatherIcon: AppCompatImageView) {
-        if (weather == "") {
-            ivWeatherIcon.setBackgroundDrawable(context.getDrawable(R.drawable.night))
+            Util.bindWeatherIcon(weather, binding.ivWeatherIcon)
         }
     }
 
@@ -56,15 +46,6 @@ class HourlyForecastAdapter(private val context: Context) :
     override fun onBindViewHolder(holder: HourlyForecastAdapterViewHolder, position: Int) {
         val current = getItem(position)
         holder.bind(current)
-    }
-
-    interface onItemClickedListerner {
-        fun onFavouriteClicked(currentWeather: HourlyForecast)
-        fun onClicked(currentWeather: HourlyForecast)
-    }
-
-    fun setOnItemClickListerner(listener: onItemClickedListerner) {
-        onClickedListerner = listener
     }
 
     companion object {

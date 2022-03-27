@@ -1,42 +1,37 @@
 package com.skimani.weatherapp.adapters
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.appcompat.widget.AppCompatImageView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.skimani.weatherapp.R
-import com.skimani.weatherapp.databinding.HourlyForecastItemListBinding
+import com.skimani.weatherapp.databinding.DailyForecastItemListBinding
 import com.skimani.weatherapp.db.entity.Hourly
-import com.skimani.weatherapp.db.entity.HourlyForecast
+import com.skimani.weatherapp.utils.Util
 
-class DailyForecastAdapter(private val context: Context) :
+class DailyForecastAdapter :
     ListAdapter<Hourly, DailyForecastAdapter.DailyForecastAdapterViewHolder>(
         HourlyForecastDiffUtil
     ) {
-    private var onClickedListerner: onItemClickedListerner? = null
 
-    inner class DailyForecastAdapterViewHolder(private val binding: HourlyForecastItemListBinding) :
+    inner class DailyForecastAdapterViewHolder(private val binding: DailyForecastItemListBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(hourlyForecast: Hourly) {
-            val date = hourlyForecast.date
+            var date = hourlyForecast.date
             val time = hourlyForecast.time
             val temperature = hourlyForecast.temperature
             val weather = hourlyForecast.weatherMain
             val weatherIcon = hourlyForecast.weatherIcon
             val weatherDesc = hourlyForecast.weatherDescription
+            if (position == 0) {
+                date = "Today"
+            } else if (position == 1) {
+                date = "Tomorrow"
+            } else date
             binding.tvTime.text = date
             binding.tvTemp.text = "$temperature°"
 
-            bindWeatherIcon(weather, binding.ivWeatherIcon)
-        }
-    }
-
-    private fun bindWeatherIcon(weather: String, ivWeatherIcon: AppCompatImageView) {
-        if (weather == "") {
-            ivWeatherIcon.setBackgroundDrawable(context.getDrawable(R.drawable.night))
+            Util.bindWeatherIcon(weather, binding.ivWeatherIcon)
         }
     }
 
@@ -45,7 +40,7 @@ class DailyForecastAdapter(private val context: Context) :
         viewType: Int
     ): DailyForecastAdapterViewHolder {
         return DailyForecastAdapterViewHolder(
-            HourlyForecastItemListBinding.inflate(
+            DailyForecastItemListBinding.inflate(
                 LayoutInflater.from(
                     parent.context
                 )
@@ -56,15 +51,6 @@ class DailyForecastAdapter(private val context: Context) :
     override fun onBindViewHolder(holder: DailyForecastAdapterViewHolder, position: Int) {
         val current = getItem(position)
         holder.bind(current)
-    }
-
-    interface onItemClickedListerner {
-        fun onFavouriteClicked(currentWeather: HourlyForecast)
-        fun onClicked(currentWeather: HourlyForecast)
-    }
-
-    fun setOnItemClickListerner(listener: onItemClickedListerner) {
-        onClickedListerner = listener
     }
 
     companion object {

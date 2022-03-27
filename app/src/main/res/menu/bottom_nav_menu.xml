@@ -18,7 +18,7 @@
         android:title="@string/search" />
     <item
         android:id="@+id/navigation_favourite"
-        android:icon="@drawable/ic_favorite_button"
+        android:icon="@drawable/ic_filled_favourite"
         android:title="@string/favourite" />
 
 

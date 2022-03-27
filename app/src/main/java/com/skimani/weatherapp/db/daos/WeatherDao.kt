@@ -13,7 +13,7 @@ interface WeatherDao {
     @Query("SELECT * FROM currentWeather ORDER BY favourite DESC, city ASC")
     fun getLocalCurrentWeather(): LiveData<List<CurrentWeather>>
 
-    @Query("SELECT * FROM hourlyForecast WHERE city=:city LIMIT 5")
+    @Query("SELECT * FROM hourlyForecast WHERE city=:city")
     fun getLocalHourlyForecast(city: String): LiveData<HourlyForecast>
 
     @Query("SELECT * FROM currentWeather WHERE city=:city AND country_code=:country")

@@ -27,7 +27,7 @@ class DetailViewModel @Inject constructor(val weatherRepository: WeatherReposito
 
     fun getHourlyForecast(city: String) {
         viewModelScope.launch {
-//            weatherRepository.getHourlyForecast(city)
+            weatherRepository.getHourlyForecast(city)
         }
     }
 }

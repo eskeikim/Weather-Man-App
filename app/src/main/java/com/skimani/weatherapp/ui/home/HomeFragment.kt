@@ -7,9 +7,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
-import com.skimani.weatherapp.R
 import com.skimani.weatherapp.adapters.CurrentWeatherAdapter
 import com.skimani.weatherapp.databinding.FragmentHomeBinding
 import com.skimani.weatherapp.db.entity.CurrentWeather
@@ -89,6 +87,7 @@ class HomeFragment : Fragment() {
             if (it != null) {
                 Timber.d("Local weather :::: $it")
                 currentWeatherAdapter.submitList(it)
+                binding.ivNoData.visibility = if (it.isEmpty()) View.VISIBLE else View.GONE
             }
         })
     }

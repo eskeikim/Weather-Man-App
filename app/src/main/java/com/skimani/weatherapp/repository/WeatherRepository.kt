@@ -66,7 +66,7 @@ class WeatherRepository @Inject constructor(
         val dateFormatted = Util.getDateTime(data.dt.toLong(), Constants.DATE_FORMAT_LONG)
         val currentWeather = CurrentWeather(
             cityId = data.sys.id.toLong(),
-            visibility = data.visibility,
+            visibility = data.visibility/1000,
             humidity = data.main.humidity,
             temperature = Util.convertFromKelvinToCelsius(data.main.temp),
             pressure = data.main.pressure,

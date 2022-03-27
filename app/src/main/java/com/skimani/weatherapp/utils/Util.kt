@@ -1,5 +1,7 @@
 package com.skimani.weatherapp.utils
 
+import androidx.appcompat.widget.AppCompatImageView
+import com.skimani.weatherapp.R
 import timber.log.Timber
 import java.text.SimpleDateFormat
 import java.util.*
@@ -43,6 +45,24 @@ class Util {
             val tempDouble = temp - 273.15
             val tempString = String.format("%.0f", tempDouble)
             return tempString
+        }
+
+        fun bindWeatherIcon(weather: String, ivWeatherIcon: AppCompatImageView) {
+            when (weather) {
+                "Clear" -> {
+                    ivWeatherIcon.setImageDrawable(ivWeatherIcon.context.getDrawable(R.drawable.partly_cloudy))
+                }
+                "Clouds" -> {
+                    ivWeatherIcon.setImageDrawable(ivWeatherIcon.context.getDrawable(R.drawable.clouds))
+                }
+                "Rains" -> {
+                    ivWeatherIcon.setImageDrawable(ivWeatherIcon.context.getDrawable(R.drawable.rainy_night))
+                }
+                "Haze" -> {
+                    ivWeatherIcon.setImageDrawable(ivWeatherIcon.context.getDrawable(R.drawable.haze))
+                }
+                else -> ivWeatherIcon.setImageDrawable(ivWeatherIcon.context.getDrawable(R.drawable.partly_cloudy))
+            }
         }
     }
 }

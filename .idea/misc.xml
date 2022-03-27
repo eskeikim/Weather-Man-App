@@ -8,8 +8,10 @@
         <entry key="..\:/projects/research/ek/weatherapp/app/src/main/res/drawable/ic_favorite_button.xml" value="0.1" />
         <entry key="..\:/projects/research/ek/weatherapp/app/src/main/res/drawable/ic_filled_favourite.xml" value="0.14270833333333333" />
         <entry key="..\:/projects/research/ek/weatherapp/app/src/main/res/drawable/ic_home_button.xml" value="0.14635416666666667" />
+        <entry key="..\:/projects/research/ek/weatherapp/app/src/main/res/drawable/ic_night.xml" value="0.10520833333333333" />
         <entry key="..\:/projects/research/ek/weatherapp/app/src/main/res/drawable/ic_notes.xml" value="0.1111111111111111" />
         <entry key="..\:/projects/research/ek/weatherapp/app/src/main/res/drawable/ic_search.xml" value="0.1" />
+        <entry key="..\:/projects/research/ek/weatherapp/app/src/main/res/drawable/rounded_bg.xml" value="0.15520833333333334" />
         <entry key="..\:/projects/research/ek/weatherapp/app/src/main/res/layout/activity_main.xml" value="0.18229166666666666" />
         <entry key="..\:/projects/research/ek/weatherapp/app/src/main/res/layout/current_weather_item_list.xml" value="0.33" />
         <entry key="..\:/projects/research/ek/weatherapp/app/src/main/res/layout/daily_forecast_item_list.xml" value="0.14947916666666666" />
@@ -19,7 +21,7 @@
         <entry key="..\:/projects/research/ek/weatherapp/app/src/main/res/layout/fragment_notes.xml" value="0.1375" />
         <entry key="..\:/projects/research/ek/weatherapp/app/src/main/res/layout/fragment_search.xml" value="0.1375" />
         <entry key="..\:/projects/research/ek/weatherapp/app/src/main/res/layout/hourly_forecast_item_list.xml" value="0.22" />
-        <entry key="..\:/projects/research/ek/weatherapp/app/src/main/res/menu/bottom_nav_menu.xml" value="0.1" />
+        <entry key="..\:/projects/research/ek/weatherapp/app/src/main/res/menu/bottom_nav_menu.xml" value="0.18" />
       </map>
     </option>
   </component>

@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.skimani.weatherapp.R
 import com.skimani.weatherapp.databinding.CurrentWeatherItemListBinding
 import com.skimani.weatherapp.db.entity.CurrentWeather
+import com.skimani.weatherapp.utils.Util
 import timber.log.Timber
 
 class CurrentWeatherAdapter(private val context: Context) :
@@ -34,11 +35,11 @@ class CurrentWeatherAdapter(private val context: Context) :
             binding.tvTime.text = time
             binding.tvTemp.text = "$temperature°"
             if (favourite) {
-                binding.ivFavourite.setBackgroundDrawable(context.getDrawable(R.drawable.ic_filled_favourite))
+                binding.ivFavourite.setImageDrawable(context.getDrawable(R.drawable.ic_filled_favourite))
             } else {
-                binding.ivFavourite.setBackgroundDrawable(context.getDrawable(R.drawable.ic_favorite_button))
+                binding.ivFavourite.setImageDrawable(context.getDrawable(R.drawable.ic_favorite_button))
             }
-            bindWeatherIcon(weather, binding.ivWeatherIcon)
+            Util.bindWeatherIcon(weather, binding.ivWeatherIcon)
             binding.ivFavourite.setOnClickListener {
                 onClickedListerner?.onFavouriteClicked(currentWeather)
             }
@@ -46,12 +47,6 @@ class CurrentWeatherAdapter(private val context: Context) :
                 Timber.d("::::CLICKED:::::")
                 onClickedListerner?.onClicked(currentWeather)
             }
-        }
-    }
-
-    private fun bindWeatherIcon(weather: String, ivWeatherIcon: AppCompatImageView) {
-        if (weather == "") {
-            ivWeatherIcon.setBackgroundDrawable(context.getDrawable(R.drawable.night))
         }
     }
 
