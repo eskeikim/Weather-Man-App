@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.skimani.weatherapp.R
 import com.skimani.weatherapp.adapters.CurrentWeatherAdapter
 import com.skimani.weatherapp.databinding.FragmentHomeBinding
 import com.skimani.weatherapp.db.entity.CurrentWeather
@@ -43,6 +44,35 @@ class HomeFragment : Fragment() {
     }
 
     private fun initviews() {
+        binding.apply {
+            ivBackground.setOnClickListener {
+                if (cdBgSelector.visibility == View.VISIBLE) {
+                    hideSelectorLayout()
+                } else {
+                    cdBgSelector.visibility = View.VISIBLE
+                }
+            }
+            tvClearDay.setOnClickListener {
+                ivBackgroundImage.setImageDrawable(requireContext().getDrawable(R.drawable.clear_day))
+                hideSelectorLayout()
+            }
+            tvRainyDay.setOnClickListener {
+                ivBackgroundImage.setImageDrawable(requireContext().getDrawable(R.drawable.rainy_day_bg))
+                hideSelectorLayout()
+            }
+            tvClearNight.setOnClickListener {
+                ivBackgroundImage.setImageDrawable(requireContext().getDrawable(R.drawable.clear_night_bg))
+                hideSelectorLayout()
+            }
+            tvRainyNight.setOnClickListener {
+                ivBackgroundImage.setImageDrawable(requireContext().getDrawable(R.drawable.rainy_night_bg))
+                hideSelectorLayout()
+            }
+        }
+    }
+
+    private fun hideSelectorLayout() {
+        binding.cdBgSelector.visibility = View.GONE
     }
 
     private fun setupAdapter() {

@@ -14,10 +14,19 @@
         android:background="@color/bg_color"
         tools:context=".ui.home.HomeFragment">
 
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv_background_image"
+            android:layout_width="match_parent"
+            android:layout_height="350dp"
+            android:src="@drawable/clear_night_bg"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <RelativeLayout
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/bg_color"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -26,12 +35,11 @@
                 android:id="@+id/iv_weather_icon"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:layout_margin="10dp"
-                android:background="@drawable/rounded_bg"
                 android:layout_alignParentStart="true"
+                android:layout_margin="10dp"
                 android:layout_toStartOf="@+id/iv_background"
-                app:queryHint="Search cities"
-                 />
+                android:background="@drawable/rounded_bg"
+                app:queryHint="Search cities" />
 
 
             <androidx.appcompat.widget.AppCompatImageView
@@ -39,18 +47,83 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_alignParentEnd="true"
-                app:tint="@color/white"
-                android:layout_margin="10dp"
-                android:src="@drawable/ic_notes" />
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp"
+                android:src="@drawable/ic_notes"
+                app:tint="@color/white" />
 
         </RelativeLayout>
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="350dp"
-            android:background="@drawable/landscape_night"
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cd_bg_selector"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="50sp"
+            android:layout_marginTop="10dp"
+            android:elevation="5dp"
+            android:visibility="gone"
+            app:cardBackgroundColor="#EADDE8"
+            app:cardCornerRadius="10dp"
+            app:cardElevation="5dp"
+            app:cardUseCompatPadding="true"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+            app:layout_constraintTop_toBottomOf="@+id/toolbar">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="20dp">
+
+                <TextView
+                    android:id="@+id/tv_clear_day"
+                    style="@style/TitleBlack"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:textSize="16sp"
+                    android:text="Clear Day" />
+
+                <TextView
+                    android:id="@+id/tv_rainy_day"
+                    style="@style/TitleBlack"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="5dp"
+                    android:paddingTop="10dp"
+                    android:textSize="16sp"
+                    android:text="Rainy Day" />
+
+                <TextView
+                    android:id="@+id/tv_clear_night"
+                    style="@style/TitleBlack"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="5dp"
+                    android:paddingTop="10dp"
+                    android:textSize="16sp"
+                    android:text="Clear Night" />
+
+                <TextView
+                    android:id="@+id/tv_rainy_night"
+                    style="@style/TitleBlack"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="5dp"
+                    android:paddingTop="10dp"
+                    android:textSize="16sp"
+                    android:text="Rainy Night" />
+
+            </LinearLayout>
+
+
+        </com.google.android.material.card.MaterialCardView>
 
         <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/iv_no_data"
@@ -79,6 +152,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_marginHorizontal="8dp"
+            android:layout_marginTop="100dp"
             android:layout_marginBottom="60dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
