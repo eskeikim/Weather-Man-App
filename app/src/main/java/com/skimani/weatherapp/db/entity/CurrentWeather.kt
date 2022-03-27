@@ -15,7 +15,7 @@ data class CurrentWeather(
     @ColumnInfo(name = "visibility") val visibility: Int,
     @ColumnInfo(name = "date") val date: String,
     @ColumnInfo(name = "time") val time: String,
-    @ColumnInfo(name = "temp") val temperature: Double,
+    @ColumnInfo(name = "temp") val temperature: String,
     @ColumnInfo(name = "country_code") val countryCode: String,
     @ColumnInfo(name = "weather_main") val weatherMain: String,
     @ColumnInfo(name = "weather_description") val weatherDescription: String,

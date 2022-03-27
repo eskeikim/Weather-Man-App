@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 import com.skimani.weatherapp.db.daos.WeatherDao
 import com.skimani.weatherapp.db.entity.CurrentWeather
 
-@Database(entities = [CurrentWeather::class], version = 1, exportSchema = true)
+@Database(entities = [CurrentWeather::class], version = 2, exportSchema = true)
 abstract class AppDB : RoomDatabase() {
     abstract fun weatherDao(): WeatherDao
 
