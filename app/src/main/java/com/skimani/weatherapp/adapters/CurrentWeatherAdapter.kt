@@ -3,7 +3,8 @@ package com.skimani.weatherapp.adapters
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.appcompat.widget.AppCompatImageView
+import android.widget.Filter
+import android.widget.Filterable
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -16,8 +17,10 @@ import timber.log.Timber
 class CurrentWeatherAdapter(private val context: Context) :
     ListAdapter<CurrentWeather, CurrentWeatherAdapter.CurrentWeatherAdapterViewHolder>(
         CurrentWeatherDiffUtil
-    ) {
+    ),
+    Filterable {
     private var onClickedListerner: onItemClickedListerner? = null
+    private var currentWeather = mutableListOf<CurrentWeather>()
 
     inner class CurrentWeatherAdapterViewHolder(private val binding: CurrentWeatherItemListBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -77,6 +80,33 @@ class CurrentWeatherAdapter(private val context: Context) :
         onClickedListerner = listener
     }
 
+    private val filterList = object : Filter() {
+        override fun performFiltering(constraint: CharSequence?): FilterResults {
+            val filteredList = mutableListOf<CurrentWeather>()
+            if (constraint == null || constraint.isEmpty()) {
+                filteredList.addAll(currentList)
+            } else {
+                for (item in currentList) {
+                    if (item.city.toLowerCase().startsWith(constraint.toString().toLowerCase())) {
+                        filteredList.add(item)
+                    }
+                }
+            }
+            val results = FilterResults()
+            results.values = filteredList
+            return results
+        }
+
+        override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
+            if (results == null) submitList(currentWeather) else submitList(results?.values as MutableList<CurrentWeather>)
+        }
+    }
+
+    fun setData(list: List<CurrentWeather>) {
+        this.currentWeather = list.toMutableList()
+        submitList(list)
+    }
+
     companion object {
         object CurrentWeatherDiffUtil : DiffUtil.ItemCallback<CurrentWeather>() {
             override fun areItemsTheSame(
@@ -93,5 +123,9 @@ class CurrentWeatherAdapter(private val context: Context) :
                 return oldItem.city == newItem.city || oldItem.cityId == newItem.cityId || oldItem.countryCode == newItem.countryCode
             }
         }
+    }
+
+    override fun getFilter(): Filter {
+        return filterList
     }
 }

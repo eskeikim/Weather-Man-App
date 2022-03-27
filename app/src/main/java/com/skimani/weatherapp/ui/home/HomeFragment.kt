@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SearchView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -68,6 +69,17 @@ class HomeFragment : Fragment() {
                 ivBackgroundImage.setImageDrawable(requireContext().getDrawable(R.drawable.rainy_night_bg))
                 hideSelectorLayout()
             }
+            ivSearchWeatherIcon.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+                override fun onQueryTextSubmit(query: String?): Boolean {
+                    currentWeatherAdapter.filter.filter(query)
+                    return false
+                }
+
+                override fun onQueryTextChange(newText: String?): Boolean {
+                    currentWeatherAdapter.filter.filter(newText)
+                    return true
+                }
+            })
         }
     }
 
@@ -116,7 +128,7 @@ class HomeFragment : Fragment() {
         homeViewModel.localCurrentWeather.observe(viewLifecycleOwner, {
             if (it != null) {
                 Timber.d("Local weather :::: $it")
-                currentWeatherAdapter.submitList(it)
+                currentWeatherAdapter.setData(it)
                 binding.ivNoData.visibility = if (it.isEmpty()) View.VISIBLE else View.GONE
             }
         })
