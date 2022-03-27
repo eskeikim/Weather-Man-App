@@ -16,6 +16,7 @@
         app:itemTextColor="@color/colorAccent"
         app:itemRippleColor="@color/white"
         app:itemIconTint="@color/white"
+        app:labelVisibilityMode="selected"
         app:itemBackground="@color/card_bg_color"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"

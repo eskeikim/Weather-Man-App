@@ -8,14 +8,10 @@
 
     <item
         android:id="@+id/navigation_notes"
-        android:icon="@drawable/ic_notes"
+        android:icon="@drawable/ic_baseline_event_note_24"
         android:iconTint="@color/white"
         android:title="@string/notes" />
 
-    <item
-        android:id="@+id/navigation_search"
-        android:icon="@drawable/ic_search"
-        android:title="@string/search" />
     <item
         android:id="@+id/navigation_favourite"
         android:icon="@drawable/ic_filled_favourite"

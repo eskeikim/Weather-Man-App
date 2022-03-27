@@ -27,6 +27,13 @@ class WeatherRepository @Inject constructor(
     }
 
     /**
+     * get favourite weather from local db
+     */
+    fun getFavouriteCurrentWeather(): LiveData<List<CurrentWeather>> {
+        return weatherDao.getFavouriteCurrentWeather()
+    }
+
+    /**
      * get hourly forecast from local db
      */
     fun getLocalHourlyForecast(city: String): LiveData<HourlyForecast> {
@@ -66,7 +73,7 @@ class WeatherRepository @Inject constructor(
         val dateFormatted = Util.getDateTime(data.dt.toLong(), Constants.DATE_FORMAT_LONG)
         val currentWeather = CurrentWeather(
             cityId = data.sys.id.toLong(),
-            visibility = data.visibility/1000,
+            visibility = data.visibility / 1000,
             humidity = data.main.humidity,
             temperature = Util.convertFromKelvinToCelsius(data.main.temp),
             pressure = data.main.pressure,

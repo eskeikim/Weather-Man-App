@@ -31,7 +31,11 @@
         android:id="@+id/navigation_favourite"
         android:name="com.skimani.weatherapp.ui.search.FavouriteFragment"
         android:label="@string/favourite"
-        tools:layout="@layout/fragment_favourite" />
+        tools:layout="@layout/fragment_favourite" >
+        <action
+            android:id="@+id/action_navigation_favourite_to_detailFragment"
+            app:destination="@id/detailFragment" />
+    </fragment>
     <fragment
         android:id="@+id/detailFragment"
         android:name="com.skimani.weatherapp.ui.home.DetailFragment"
