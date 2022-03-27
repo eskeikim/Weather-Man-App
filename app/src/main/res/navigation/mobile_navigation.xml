@@ -36,6 +36,11 @@
         android:id="@+id/detailFragment"
         android:name="com.skimani.weatherapp.ui.home.DetailFragment"
         android:label="detail_fragment"
-        tools:layout="@layout/detail_fragment" />
+        tools:layout="@layout/detail_fragment" >
+        <argument
+            android:name="currentWeather"
+            app:argType="com.skimani.weatherapp.db.entity.CurrentWeather"
+            />
+    </fragment>
 
 </navigation>

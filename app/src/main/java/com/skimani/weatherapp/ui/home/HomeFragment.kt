@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import com.skimani.weatherapp.R
 import com.skimani.weatherapp.adapters.CurrentWeatherAdapter
 import com.skimani.weatherapp.databinding.FragmentHomeBinding
@@ -71,8 +72,9 @@ class HomeFragment : Fragment() {
                 }
 
                 override fun onClicked(currentWeather: CurrentWeather) {
-                    Navigation.findNavController(binding.rvCurrentWeather)
-                        .navigate(R.id.detailFragment)
+                    val directions =
+                        HomeFragmentDirections.actionNavigationHomeToDetailFragment(currentWeather)
+                    findNavController().navigate(directions)
                 }
             })
     }

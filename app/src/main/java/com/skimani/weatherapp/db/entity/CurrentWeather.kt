@@ -1,10 +1,13 @@
 package com.skimani.weatherapp.db.entity
 
+import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.Index
 import androidx.room.PrimaryKey
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 @Entity(
     tableName = "currentWeather", indices = [Index(value = ["city", "country_code"])]
 )
@@ -24,4 +27,4 @@ data class CurrentWeather(
     @ColumnInfo(name = "pressure") val pressure: Int,
     @ColumnInfo(name = "humidity") val humidity: Int,
     @ColumnInfo(name = "favourite") val favourite: Boolean = false
-)
+) : Parcelable

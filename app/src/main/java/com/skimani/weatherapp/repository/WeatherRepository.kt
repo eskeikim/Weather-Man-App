@@ -25,6 +25,13 @@ class WeatherRepository @Inject constructor(
     }
 
     /**
+     * get current weather details from local db
+     */
+    fun getCurrentWeatherDetails(city: String, country: String): LiveData<CurrentWeather> {
+        return weatherDao.getCurrentWeatherDetails(city, country)
+    }
+
+    /**
      * Fetch current weather from internet
      */
     suspend fun getCurrentWeather(location: String) {
