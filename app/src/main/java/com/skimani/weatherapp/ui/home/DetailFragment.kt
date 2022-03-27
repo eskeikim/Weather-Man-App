@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import com.skimani.weatherapp.R
+import com.skimani.weatherapp.adapters.HourlyForecastAdapter
 import com.skimani.weatherapp.databinding.DetailFragmentBinding
 import com.skimani.weatherapp.db.entity.CurrentWeather
 import dagger.hilt.android.AndroidEntryPoint
@@ -24,6 +25,7 @@ class DetailFragment : Fragment() {
     private lateinit var viewModel: DetailViewModel
     private var _binding: DetailFragmentBinding? = null
     private val binding get() = _binding!!
+    private lateinit var hourlyForecastAdapter: HourlyForecastAdapter
 
     val currentWeather by lazy {
         arguments?.let { DetailFragmentArgs.fromBundle(it).currentWeather }
@@ -47,6 +49,9 @@ class DetailFragment : Fragment() {
 
     private fun initRequests() {
 //        viewModel.localCurrentWeatherDetails()
+        val city = "${currentWeather?.city}, ${currentWeather?.countryCode}"
+        currentWeather?.city?.let { viewModel.getLocalHourlyForecast(it) }
+        viewModel.getHourlyForecast(city)
     }
 
     private fun initViews() {
@@ -68,6 +73,12 @@ class DetailFragment : Fragment() {
                 currentWeather?.let { onFavouriteClicked(it) }
             }
         }
+        initAdapter()
+    }
+
+    private fun initAdapter() {
+        hourlyForecastAdapter = HourlyForecastAdapter(requireContext())
+        binding.rvHourlyForecast.adapter = hourlyForecastAdapter
     }
 
     private fun onFavouriteClicked(currentWeather: CurrentWeather) {
@@ -108,6 +119,15 @@ class DetailFragment : Fragment() {
                     }
                 }
             })
+        }
+        currentWeather?.let {
+            viewModel.getLocalHourlyForecast(it.city)
+                .observe(viewLifecycleOwner, { hourlyForecast ->
+                    if (hourlyForecast != null) {
+                        val data = hourlyForecast.list
+                        hourlyForecastAdapter.submitList(data?.subList(0,6))
+                    }
+                })
         }
     }
 

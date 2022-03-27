@@ -17,7 +17,7 @@ interface ApiService {
     ): Response<CurrentWeatherResponse>
 
     @GET("forecast")
-    suspend fun HourlyForecast(
+    suspend fun getHourlyForecast(
         @Query("q") search: String
     ): Response<HourlyForecastResponse>
 }

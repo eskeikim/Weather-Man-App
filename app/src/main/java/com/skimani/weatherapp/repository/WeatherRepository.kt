@@ -3,6 +3,8 @@ package com.skimani.weatherapp.repository
 import androidx.lifecycle.LiveData
 import com.skimani.weatherapp.db.daos.WeatherDao
 import com.skimani.weatherapp.db.entity.CurrentWeather
+import com.skimani.weatherapp.db.entity.Hourly
+import com.skimani.weatherapp.db.entity.HourlyForecast
 import com.skimani.weatherapp.network.api.ApiService
 import com.skimani.weatherapp.network.datasource.NetworkResult
 import com.skimani.weatherapp.network.models.CurrentWeatherResponse
@@ -22,6 +24,13 @@ class WeatherRepository @Inject constructor(
      */
     fun getLocalCurrentWeather(): LiveData<List<CurrentWeather>> {
         return weatherDao.getLocalCurrentWeather()
+    }
+
+    /**
+     * get hourly forecast from local db
+     */
+    fun getLocalHourlyForecast(city: String): LiveData<HourlyForecast> {
+        return weatherDao.getLocalHourlyForecast(city)
     }
 
     /**
@@ -54,9 +63,6 @@ class WeatherRepository @Inject constructor(
         val weatherMain = data.weather[0].main
         val weatherIcon = data.weather[0].icon
         val weatherDesc = data.weather[0].description
-//        val date = Util.getDateTime(data.dt.toLong(), Constants.DATE_FORMAT_LONG) ?: ""
-//        val dateLong = Util.getTimeFromDate(data.dt.toLong(), Constants.DATE_FORMAT_LONG)
-//        val dateLong = Util.getTimeFromDate(date, Constants.DATE_FORMAT_LONG)
         val dateFormatted = Util.getDateTime(data.dt.toLong(), Constants.DATE_FORMAT_LONG)
         val currentWeather = CurrentWeather(
             cityId = data.sys.id.toLong(),
@@ -79,5 +85,52 @@ class WeatherRepository @Inject constructor(
 
     suspend fun addFavourite(city: String, country: String, isFavourite: Boolean) {
         weatherDao.addFavourite(city, country, isFavourite)
+    }
+
+    /**
+     * Fetch hourly weather from internet
+     */
+    suspend fun getHourlyForecast(location: String) {
+        val hourlyResponse = safeApiCall(apiCall = { apiService.getHourlyForecast(location) })
+        when (hourlyResponse) {
+            is NetworkResult.Success -> {
+                val city = hourlyResponse.data.city.name
+                val cityId = hourlyResponse.data.city.id.toLong()
+                val country = hourlyResponse.data.city.country
+                val hourlList = ArrayList<Hourly>()
+                for (hour in hourlyResponse.data.list) {
+                    val dateFormatted =
+                        Util.getDateTime(hour.dt.toLong(), Constants.DATE_FORMAT_LONG) ?: ""
+                    val hourly = Hourly(
+                        date = dateFormatted,
+                        time = Util.getDateTime(hour.dt.toLong(), Constants.DATE_FORMAT_DISPLAY_12H)
+                            ?: "",
+                        temperature = Util.convertFromKelvinToCelsius(hour.main.temp),
+                        weatherMain = hour.weather[0].main,
+                        weatherDescription = hour.weather[0].description,
+                        weatherIcon = hour.weather[0].icon,
+                        visibility = hour.visibility,
+                        windSpeed = hour.wind.speed,
+                        pressure = hour.main.pressure,
+                        humidity = hour.main.humidity,
+                        dewPoint = Util.convertFromKelvinToCelsius(hour.main.tempMin)
+                    )
+                    hourlList.add(hourly)
+                }
+                val hourlyForecast = HourlyForecast(
+                    city = city,
+                    cityId = cityId,
+                    country = country,
+                    list = hourlList
+                )
+                weatherDao.saveHourlyForecast(hourlyForecast)
+            }
+            is NetworkResult.NetworkError -> {
+                Timber.d("Error ${hourlyResponse.exception}")
+            }
+            is NetworkResult.Error -> {
+                Timber.d("Error ${hourlyResponse.exception}")
+            }
+        }
     }
 }

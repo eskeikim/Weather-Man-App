@@ -309,6 +309,6 @@
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:spanCount="2"
             tools:itemCount="4"
-            tools:listitem="@layout/hourly_forecast_item_list" />
+            tools:listitem="@layout/daily_forecast_item_list" />
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>
