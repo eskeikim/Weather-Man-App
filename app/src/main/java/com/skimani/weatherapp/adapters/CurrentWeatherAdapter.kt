@@ -40,13 +40,11 @@ class CurrentWeatherAdapter(private val context: Context) :
             }
             bindWeatherIcon(weather, binding.ivWeatherIcon)
             binding.ivFavourite.setOnClickListener {
-                Timber.d("CLICKED:::::")
-//                Toast.makeText(context, "!!! ${currentWeather.city}", Toast.LENGTH_SHORT).show()
                 onClickedListerner?.onFavouriteClicked(currentWeather)
             }
             binding.root.setOnClickListener {
                 Timber.d("::::CLICKED:::::")
-                onClickedListerner?.onFavouriteClicked(currentWeather)
+                onClickedListerner?.onClicked(currentWeather)
             }
         }
     }
@@ -77,7 +75,7 @@ class CurrentWeatherAdapter(private val context: Context) :
 
     interface onItemClickedListerner {
         fun onFavouriteClicked(currentWeather: CurrentWeather)
-        fun onClicked(position: Int)
+        fun onClicked(currentWeather: CurrentWeather)
     }
 
     fun setOnItemClickListerner(listener: onItemClickedListerner) {

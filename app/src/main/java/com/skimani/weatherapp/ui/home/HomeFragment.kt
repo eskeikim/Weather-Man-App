@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.Navigation
+import com.skimani.weatherapp.R
 import com.skimani.weatherapp.adapters.CurrentWeatherAdapter
 import com.skimani.weatherapp.databinding.FragmentHomeBinding
 import com.skimani.weatherapp.db.entity.CurrentWeather
@@ -52,11 +54,6 @@ class HomeFragment : Fragment() {
 
                 override fun onFavouriteClicked(currentWeather: CurrentWeather) {
                     Timber.d("favourite!!! ${currentWeather.city}")
-                    Toast.makeText(
-                        requireContext(),
-                        "favourite!!! ${currentWeather.city}",
-                        Toast.LENGTH_SHORT
-                    ).show()
                     var isFavourite = false
                     isFavourite = !currentWeather.favourite
                     homeViewModel.addFavourite(
@@ -64,9 +61,18 @@ class HomeFragment : Fragment() {
                         currentWeather.countryCode,
                         isFavourite
                     )
+                    val message =
+                        if (isFavourite) " ${currentWeather.city} added to favourites" else " ${currentWeather.city} removed from favourites"
+                    Toast.makeText(
+                        requireContext(),
+                        message,
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
 
-                override fun onClicked(position: Int) {
+                override fun onClicked(currentWeather: CurrentWeather) {
+                    Navigation.findNavController(binding.rvCurrentWeather)
+                        .navigate(R.id.navigation_notes)
                 }
             })
     }
