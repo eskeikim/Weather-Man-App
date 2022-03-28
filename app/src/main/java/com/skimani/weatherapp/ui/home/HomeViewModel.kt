@@ -22,21 +22,23 @@ class HomeViewModel @Inject constructor(val weatherRepository: WeatherRepository
     val localCurrentWeather: LiveData<List<CurrentWeather>>
         get() = localCurrentWeather()
 
-    init {
-//        getCurrentWeather()
-    }
-
     fun localCurrentWeather() = weatherRepository.getLocalCurrentWeather()
 
+    /**
+     * get the current weather
+     */
     fun getCurrentWeather() {
         val cities = Constants.sampleCities()
         viewModelScope.launch {
             cities.forEach {
-//                val currentWeatherResponse = weatherRepository.getCurrentWeather(it)
+                val currentWeatherResponse = weatherRepository.getCurrentWeather(it)
             }
         }
     }
 
+    /**
+     * Add to favourite
+     */
     fun addFavourite(city: String, country: String, isFavourite: Boolean) {
         viewModelScope.launch {
             weatherRepository.addFavourite(city, country, isFavourite)
