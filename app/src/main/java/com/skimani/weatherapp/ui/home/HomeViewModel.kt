@@ -31,7 +31,7 @@ class HomeViewModel @Inject constructor(val weatherRepository: WeatherRepository
         val cities = Constants.sampleCities()
         viewModelScope.launch {
             cities.forEach {
-                val currentWeatherResponse = weatherRepository.getCurrentWeather(it)
+//                val currentWeatherResponse = weatherRepository.getCurrentWeather(it)
             }
         }
     }

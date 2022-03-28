@@ -9,6 +9,8 @@ class Constants {
 
         val DATE_FORMAT_DISPLAY_12H = "hh:mm a"
         val DATE_FORMAT_LONG = "EEE, MMM d, yyyy"
+        val TAG_NOTIFICATION_TIME_WORKER = "tag_notification_worket"
+        val NAME_NOTIFICATION_TIME_WORKER = "name_notification_worket"
 
         fun sampleCities(): ArrayList<String> {
             val cities = arrayListOf<String>()

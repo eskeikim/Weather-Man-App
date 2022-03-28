@@ -95,4 +95,9 @@ dependencies {
     //Lottie library
     def lottieVersion = "4.0.0"
     implementation "com.airbnb.android:lottie:$lottieVersion"
+
+    //Hilt with workManager
+    implementation 'androidx.hilt:hilt-work:1.0.0-alpha02'
+    kapt 'androidx.hilt:hilt-compiler:1.0.0-alpha02'
+    implementation "androidx.work:work-runtime-ktx:$work_manager_version"
 }

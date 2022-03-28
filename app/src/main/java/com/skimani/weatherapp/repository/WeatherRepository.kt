@@ -32,6 +32,12 @@ class WeatherRepository @Inject constructor(
     fun getFavouriteCurrentWeather(): LiveData<List<CurrentWeather>> {
         return weatherDao.getFavouriteCurrentWeather()
     }
+    /**
+     * get favourite weather from local db
+     */
+    fun getFavouriteCurrentWeatherNotification(): List<CurrentWeather> {
+        return weatherDao.getLocalCurrentWeatherTest()
+    }
 
     /**
      * get hourly forecast from local db

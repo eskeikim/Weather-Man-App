@@ -9,12 +9,18 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.work.ExistingPeriodicWorkPolicy
+import androidx.work.PeriodicWorkRequest
+import androidx.work.WorkManager
 import com.skimani.weatherapp.R
 import com.skimani.weatherapp.adapters.CurrentWeatherAdapter
 import com.skimani.weatherapp.databinding.FragmentHomeBinding
 import com.skimani.weatherapp.db.entity.CurrentWeather
+import com.skimani.weatherapp.utils.Constants
+import com.skimani.weatherapp.utils.NotificationWorkManager
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
+import java.util.concurrent.TimeUnit
 
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
@@ -122,6 +128,7 @@ class HomeFragment : Fragment() {
     private fun initRequests() {
         homeViewModel.localCurrentWeather()
         homeViewModel.getCurrentWeather()
+        initPeriodicWork()
     }
 
     private fun setUpObservers() {
@@ -132,6 +139,19 @@ class HomeFragment : Fragment() {
                 binding.ivNoData.visibility = if (it.isEmpty()) View.VISIBLE else View.GONE
             }
         })
+    }
+
+    private fun initPeriodicWork() {
+        val syncDatesWork =
+            PeriodicWorkRequest.Builder(NotificationWorkManager::class.java, 1, TimeUnit.HOURS)
+                .setInitialDelay(2, TimeUnit.MINUTES)
+                .addTag(Constants.TAG_NOTIFICATION_TIME_WORKER)
+                .build()
+        WorkManager.getInstance(requireContext()).enqueueUniquePeriodicWork(
+            Constants.NAME_NOTIFICATION_TIME_WORKER,
+            ExistingPeriodicWorkPolicy.KEEP,
+            syncDatesWork
+        )
     }
 
     override fun onDestroyView() {
