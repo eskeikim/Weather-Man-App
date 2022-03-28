@@ -11,9 +11,6 @@ import com.skimani.weatherapp.db.entity.HourlyForecast
 @Dao
 interface WeatherDao {
     @Query("SELECT * FROM currentWeather ORDER BY favourite DESC, city ASC")
-    fun getLocalCurrentWeatherTest(): List<CurrentWeather>
-
-    @Query("SELECT * FROM currentWeather ORDER BY favourite DESC, city ASC")
     fun getLocalCurrentWeather(): LiveData<List<CurrentWeather>>
 
     @Query("SELECT * FROM currentWeather WHERE favourite=1 ORDER BY favourite DESC, city ASC")
@@ -33,4 +30,10 @@ interface WeatherDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun saveHourlyForecast(hourlyForecast: HourlyForecast)
+
+    /**
+     * for room db testing
+     */
+    @Query("SELECT * FROM currentWeather ORDER BY favourite DESC, city ASC")
+    fun getLocalCurrentWeatherTest(): List<CurrentWeather>
 }
